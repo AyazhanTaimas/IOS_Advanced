@@ -1,5 +1,5 @@
-## 2LAB Memory Management 
-# 1. Memory Management Decisions
+# 2LAB Memory Management 
+## 1. Memory Management Decisions
 В проекте используются weak ссылки для предотвращения ретеншн-циклов и утечек памяти.
 1. Использование weak для делегатов
 
@@ -32,7 +32,7 @@ DispatchQueue.global().async {
 }
 ```
 
-# 2. Collection Type Choices
+## 2. Collection Type Choices
 Разные коллекции выбраны в зависимости от требований по производительности и логике работы данных.
 
 1. Использование [UUID: UserProfile] в ProfileManager
@@ -52,7 +52,7 @@ private var feedPosts: [Post] = []
 ```
 Используется Array, так как вставка новых постов в начало выполняется с допустимой сложностью (O(n)), а доступ к элементам осуществляется за O(1).
 
-# 3.Protocol Implementation
+## 3.Protocol Implementation
 В проекте используется protocol для слабосвязанных компонентов.
 
 1. ImageLoaderDelegate для загрузки изображений
