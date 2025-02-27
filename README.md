@@ -11,7 +11,7 @@ weak var delegate: ImageLoaderDelegate?
 
 2. Использование weak self в GCD
 Во избежание ретеншн-циклов внутри DispatchQueue.global().async, используется weak self внутри DispatchQueue.main.async:
-```
+```swift
 DispatchQueue.global().async {
     do {
         let data = try Data(contentsOf: url)
