@@ -4,7 +4,7 @@
 1. Использование weak для делегатов
 
 Классы ImageLoader и ProfileManager используют weak var delegate, чтобы избежать сильной ссылки на делегата:
-```
+```swift
 weak var delegate: ImageLoaderDelegate?
 ```
 Это предотвращает возможные утечки памяти, так как объект делегата может быть освобожден без необходимости обрывать связь вручную.
@@ -36,18 +36,18 @@ DispatchQueue.global().async {
 Разные коллекции выбраны в зависимости от требований по производительности и логике работы данных.
 
 1. Использование [UUID: UserProfile] в ProfileManager
-```
+```swift
 @Published private var activeProfiles: [UUID: UserProfile] = [:]
 ```
 Dictionary ([UUID: UserProfile]) используется для быстрого доступа к профилям по UUID, что значительно эффективнее Array, так как поиск в словаре выполняется за O(1), а в массиве — O(n).
 2. Использование Set<String> для хештегов
-```
+```swift
 private var hashtags: Set<String> = []
 ```
 Set позволяет хранить уникальные хештеги и быстро проверять их наличие (O(1)).
 
 3. Использование Array ([Post]) для хранения ленты постов
-```
+```swift
 private var feedPosts: [Post] = []
 ```
 Используется Array, так как вставка новых постов в начало выполняется с допустимой сложностью (O(n)), а доступ к элементам осуществляется за O(1).
@@ -56,7 +56,7 @@ private var feedPosts: [Post] = []
 В проекте используется protocol для слабосвязанных компонентов.
 
 1. ImageLoaderDelegate для загрузки изображений
-```
+```swift
 protocol ImageLoaderDelegate: AnyObject {
     func imageLoader(_ loader: ImageLoader, didLoad image: UIImage)
     func imageLoader(_ loader: ImageLoader, didFailWith error: Error)
@@ -66,7 +66,7 @@ protocol ImageLoaderDelegate: AnyObject {
 AnyObject используется, чтобы delegate можно было объявить как weak.
 
 2. ProfileUpdateDelegate для обновления профиля
-```
+```swift
 protocol ProfileUpdateDelegate: AnyObject {
     func profileDidUpdate(_ profile: UserProfile)
     func profileLoadingError(_ error: Error)
@@ -77,7 +77,7 @@ protocol ProfileUpdateDelegate: AnyObject {
 3. Реализация Hashable и Equatable в Post и UserProfile
 
 Для обеспечения корректной работы Set и Dictionary, Post и UserProfile реализуют Hashable и Equatable:
-```
+```swift
 struct Post: Hashable, Equatable {
     let id: UUID
     let authorId: UUID
@@ -96,7 +96,7 @@ struct Post: Hashable, Equatable {
 }
 ```
 
-```
+```swift
 struct UserProfile: Hashable, Equatable {
     let id: UUID
     let username: String
